@@ -1,0 +1,52 @@
+general:
+  train_mode: true
+  task: "instance_segmentation"
+  seed: null
+  checkpoint: null
+  backbone_checkpoint: null
+  freeze_backbone: false # train only last layer
+  linear_probing_backbone: false
+  filter_out_instances: true
+  save_visualizations: false
+  visualization_point_size: 20
+  decoder_id: -1
+  export: false
+  ignore_class_threshold: 100
+  project_name: 5plant
+  experiment_name: 5plant_seg
+  num_targets: 11
+  add_instance: true
+  output_premask: false
+  dbscan_min_points: 1
+  export_threshold: 0.0001
+  reps_per_epoch: 1
+  iou_threshold: 1.0
+  area: 2
+  eval_inner_core: -1 # disabled
+  topk_per_image: -1
+  ignore_mask_idx: []
+  max_batch_size: 99999999
+  save_dir: saved/${general.experiment_name}
+  gpus: [0]
+
+defaults:
+  - data: indoor
+  - data/data_loaders: simple_loader
+  - data/datasets: 5plant
+  - data/collation_functions: voxelize_collate
+  - logging: full
+  - model: Organ3D
+  - metrics: miou
+  - optimizer: adamw
+  - scheduler: onecyclelr
+  - trainer: trainer
+  - callbacks: callbacks_instance_segmentation
+  - matcher: hungarian_matcher
+  - loss: set_criterion
+
+hydra:
+  run:
+    dir: saved/hydra_logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: saved/hydra_logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}_${hydra.job.id}

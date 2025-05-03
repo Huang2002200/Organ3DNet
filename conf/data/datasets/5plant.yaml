@@ -1,0 +1,57 @@
+# @package data
+train_dataset:
+  _target_: datasets.semseg.SemanticSegmentationDataset
+  dataset_name: "5plant"
+  data_dir: data/processed/5plant
+  volume_augmentations_path: conf/augmentation/volumentations_aug.yaml
+  label_db_filepath: data/processed/5plant/label_database.yaml
+  mode: ${data.train_mode}
+  ignore_label: ${data.ignore_label}
+  num_labels: ${data.num_labels}
+  add_raw_coordinates: ${data.add_raw_coordinates}
+  add_colors: ${data.add_colors}
+  add_normals: ${data.add_normals}
+  add_instance: ${data.add_instance}
+  # different augs experiments
+  point_per_cut: 0
+  max_cut_region: 0
+  flip_in_center: false
+  noise_rate: 0
+  resample_points: 0
+  area: ${general.area}
+  filter_out_classes: []
+  label_offset: 0
+
+validation_dataset:
+  _target_: datasets.semseg.SemanticSegmentationDataset
+  dataset_name: "5plant"
+  data_dir: data/processed/5plant
+  volume_augmentations_path: null
+  label_db_filepath: data/processed/5plant/label_database.yaml
+  mode: ${data.validation_mode}
+  ignore_label: ${data.ignore_label}
+  num_labels: ${data.num_labels}
+  add_raw_coordinates: ${data.add_raw_coordinates}
+  add_colors: ${data.add_colors}
+  add_normals: ${data.add_normals}
+  add_instance: ${data.add_instance}
+  area: ${general.area}
+  filter_out_classes: []
+  label_offset: 0
+
+test_dataset:
+  _target_: datasets.semseg.SemanticSegmentationDataset
+  dataset_name: "5plant"
+  data_dir: data/processed/5plant
+  volume_augmentations_path: null
+  label_db_filepath: data/processed/5plant/label_database.yaml
+  mode: ${data.test_mode}
+  ignore_label: ${data.ignore_label}
+  num_labels: ${data.num_labels}
+  add_raw_coordinates: ${data.add_raw_coordinates}
+  add_colors: ${data.add_colors}
+  add_normals: ${data.add_normals}
+  add_instance: ${data.add_instance}
+  area: ${general.area}
+  filter_out_classes: []
+  label_offset: 0
