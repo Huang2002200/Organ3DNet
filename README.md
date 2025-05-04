@@ -31,6 +31,14 @@ The value of the instance label in most cases represents the label of each leaf 
 The relevant files for preprocessing the dataset are stored in the datasets/preprocessing folder. The preprocessing steps are as follows: <br>
 * Normalize the coordinates of the training set (test set) point cloud and scale it to the interval [0,30].
   ```
-  cd 
-2. Perform 10x data enhancement on the training set point cloud. First, record its center point, then use the farthest point sampling (FPS) to sample 8 points. Use these 9 points as the center point to form a cube area with a side length of 20. The entire crop point cloud and the crop part contained in these 9 cubes are used as the augmented training dataset.
-3. Extract the edge points in the augmented training set (test set) point cloud and add the label 1 to the corresponding points, and add the label 0 to the remaining points. This step is to easily distinguish edge points and non-edge points during subsequent 3DEPS sampling.
+  cd datasets/preprocessing/data_prepare
+  python scale_pointcloud.py --input /path/to/trainset(testset)/directory --output /path/to/scaled trainset(testset)/directory --range 30
+  ```
+* Perform 10x data enhancement on the training set point cloud. First, record its center point, then use the farthest point sampling (FPS) to sample 8 points. Use these 9 points as the center point to form a cube area with a side length of 20. The entire crop point cloud and the crop part contained in these 9 cubes are used as the augmented training dataset.
+  ```
+  python traindata_agument.py --input /path/to/scaled trainset --output /path/to/augmented trainset
+  ```
+* Extract the edge points in the augmented training set (test set) point cloud and add the label 1 to the corresponding points, and add the label 0 to the remaining points. This step is to easily distinguish edge points and non-edge points during subsequent 3DEPS sampling.
+  ```
+  python get_edge.py --input /path/to/augmented trainset(testset) --output /path/to/labeled trainset(testset)
+  ```
