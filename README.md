@@ -60,4 +60,3 @@ After the processed data set is stored in the directory ./data/processed/5plant,
   conda activate Organ3DNet
   sh test.sh
   ```
-  
