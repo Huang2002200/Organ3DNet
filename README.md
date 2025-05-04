@@ -28,3 +28,9 @@ All raw point clouds are represented in the form of txt files. Each txt file rep
 The value of the semantic label starts from "0" to "9". "0" means "tobacco stem system", "1" means "tobacco leaf"; "2" means "tomato stem system", "3" means "tomato leaf"; "4" means "sorghum stem system", "5" means "sorghum leaf"; "6" means "soybean stem system", "7" means "soybean leaf"; "8" means "pepper stem system", "9" means "pepper leaf".<br><br>
 The value of the instance label in most cases represents the label of each leaf organ instance. For example, "1" represents the 1st leaf in the current point cloud, and "18" represents the 18th leaf in the current point cloud.Every point in the stem system (regardless of species) is assigned an instance label of 0.<br>
 ## Data_preprocessing<br>
+The relevant files for preprocessing the dataset are stored in the datasets/preprocessing folder. The preprocessing steps are as follows: <br>
+* Normalize the coordinates of the training set (test set) point cloud and scale it to the interval [0,30].
+  ```
+  cd 
+2. Perform 10x data enhancement on the training set point cloud. First, record its center point, then use the farthest point sampling (FPS) to sample 8 points. Use these 9 points as the center point to form a cube area with a side length of 20. The entire crop point cloud and the crop part contained in these 9 cubes are used as the augmented training dataset.
+3. Extract the edge points in the augmented training set (test set) point cloud and add the label 1 to the corresponding points, and add the label 0 to the remaining points. This step is to easily distinguish edge points and non-edge points during subsequent 3DEPS sampling.
