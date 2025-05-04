@@ -1,7 +1,7 @@
 #!/bin/bash
 export OMP_NUM_THREADS=3  # speeds up MinkowskiEngine
 
-CURR_AREA=2  # set the area number accordingly [1,6]
+CURR_AREA=2  # Directory corresponding to the testing set
 
 python main_instance_segmentation.py \
   general.train_mode=true \
