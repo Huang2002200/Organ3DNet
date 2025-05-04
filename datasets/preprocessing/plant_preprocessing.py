@@ -116,15 +116,13 @@ class PlantPreprocessing(BasePreprocessing):
             print(f"({points.shape[0]} vs. {pcd_size})")
 
         filebase["raw_segmentation_filepath"] = ""
-        # add color as additional feature
         xyz_info = points[:, :3]
 
-        # 获取ins label列和sem label列
         sem_label = points[:, 4].astype(int)
         ins_label = points[:, 3].astype(int)
         is_edge = points[:, -1:]
 
-        ones_data = np.ones((normals.shape[0], 1))
+        ones_data = np.ones((xyz_info.shape[0], 1))
         xyz_info_with_colors_and_ones = np.hstack((xyz_info, ones_data, is_edge))
 
         points = np.hstack((xyz_info_with_colors_and_ones, sem_label[:, None], ins_label[:, None]))  #xyz_segid_isedge_sem_ins
