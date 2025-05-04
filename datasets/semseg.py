@@ -146,17 +146,16 @@ class SemanticSegmentationDataset(Dataset):
     def __getitem__(self, idx: int):
         idx = idx % len(self.data)
         points = np.load(self.data[idx]["filepath"].replace("../../", ""))
-        is_edge = points[:,7]
+        is_edge = points[:,4]
 
-        coordinates,  segments, normals, labels = (
+        coordinates,  segments, labels = (
             points[:, :3],
             points[:, 3],
-            points[:, 4:7],
-            points[:, 8:10],
+            points[:, 5:7],
         )
 
         raw_coordinates = coordinates.copy()
-        raw_normals = normals
+        raw_normals = np.ones_like(coordinates)
 
         # volume and image augmentations for train
         if "train" in self.mode:
@@ -180,13 +179,11 @@ class SemanticSegmentationDataset(Dataset):
 
             aug = self.volume_augmentations(
                 points=coordinates,
-                normals=normals,
                 features=coordinates,
                 labels=labels,
             )
-            coordinates, normals, labels = (
+            coordinates,labels = (
                 aug["points"],
-                aug["normals"],
                 aug["labels"],
             )
 
