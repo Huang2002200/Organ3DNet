@@ -1,5 +1,5 @@
 '''
-python scale_pointcloud00.py --input /path/to/input/directory --output /path/to/output/directory --range 30
+python scale_pointcloud.py --input /path/to/input/directory --output /path/to/output/directory --range 30
 '''
 
 import os

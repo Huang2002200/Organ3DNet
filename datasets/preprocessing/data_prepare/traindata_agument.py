@@ -1,5 +1,5 @@
 '''
-python traindata_agument03.py --input /path/to/train_dataset --output /path/to/output/directory
+python traindata_agument.py --input /path/to/train_dataset --output /path/to/output/directory
 '''
 import os
 import numpy as np

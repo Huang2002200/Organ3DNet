@@ -1,5 +1,5 @@
 '''
-python get_edge01.py --input /path/to/scaled pointclouds/directory --output /path/to/labeled pointclouds/directory --range 30
+python get_edge.py --input /path/to/scaled pointclouds/directory --output /path/to/labeled pointclouds/directory --range 30
 '''
 
 import os
