@@ -22,7 +22,7 @@ cd ..
 cd pointnet2
 python setup.py install
 ```
-## DataSet<br>
+## Dataset<br>
 The dataset (file 5plant_xyz_ins_sem.rar) contains 889 colorless point clouds of five crops (tobacco, tomato, sorghum, soybean, pepper), including 635 training point clouds (folder Area_1) and 254 test point clouds (folder Area_2). Tobacco has 105 point clouds, tomato has 326 point clouds, sorghum has 129 point clouds, soybean has 92 point clouds, and pepper has 237 point clouds. <br><br>
 All raw point clouds are represented in the form of txt files. Each txt file represents a 3D plant. Each line of the txt file represents a point in the point cloud. Each txt file contains 5 columns, of which the first three columns show the "xyz" spatial information, the coordinate unit is centimeter, the fourth column is the instance label, and the fifth column is the semantic label.<br><br>
 The value of the semantic label starts from "0" to "9". "0" means "tobacco stem system", "1" means "tobacco leaf"; "2" means "tomato stem system", "3" means "tomato leaf"; "4" means "sorghum stem system", "5" means "sorghum leaf"; "6" means "soybean stem system", "7" means "soybean leaf"; "8" means "pepper stem system", "9" means "pepper leaf".<br><br>
