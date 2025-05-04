@@ -32,13 +32,32 @@ The relevant files for preprocessing the dataset are stored in the datasets/prep
 * Normalize the coordinates of the training set (test set) point cloud and scale it to the interval [0,30].
   ```
   cd datasets/preprocessing/data_prepare
-  python scale_pointcloud.py --input /path/to/trainset(testset)/directory --output /path/to/scaled trainset(testset)/directory --range 30
+  python scale_pointcloud.py --input /path/to/dataset/Area_1(Area_2) --output /path/to/scaled dataset/Area_1(Area_2) --range 30
   ```
 * Perform 10x data enhancement on the training set point cloud. First, record its center point, then use the farthest point sampling (FPS) to sample 8 points. Use these 9 points as the center point to form a cube area with a side length of 20. The entire crop point cloud and the crop part contained in these 9 cubes are used as the augmented training dataset.
   ```
-  python traindata_agument.py --input /path/to/scaled trainset --output /path/to/augmented trainset
+  python traindata_agument.py --input /path/to/scaled dataset/Area_1 --output /path/to/augmented dataset/Area_1
   ```
 * Extract the edge points in the augmented training set (test set) point cloud and add the label 1 to the corresponding points, and add the label 0 to the remaining points. This step is to easily distinguish edge points and non-edge points during subsequent 3DEPS sampling.
   ```
-  python get_edge.py --input /path/to/augmented trainset(testset) --output /path/to/labeled trainset(testset)
+  python get_edge.py --input /path/to/augmented dataset/Area_1(Area_2) --output /path/to/labeled dataset/Area_1(Area_2)
   ```
+* Convert the point cloud files processed by the above steps into npy files with a file size of (N,7), where N is the number of point cloud points, the first three columns are xyz information, the fourth column is the segment id, all initialized to 1 (not used during training and testing), the fifth column is the binary label to determine whether it is an edge point, the sixth column is the semantic label, and the seventh column is the real label.
+  ```
+  cd ..\..\..
+  python -m datasets.preprocessing.plant_preprocessing preprocess --data_dir="/path/to/labeled dataset" --save_dir="./data/processed/5plant"
+  ```
+## Quick Start<br>
+After the processed data set is stored in the directory ./data/processed/5plant, training and testing can be performed.
+* Training
+  ```
+  conda activate Organ3DNet
+  sh train.sh
+  ```
+* Testing<br>
+  Set general.checkpoint in the test.sh file to the trained model path
+  ```
+  conda activate Organ3DNet
+  sh test.sh
+  ```
+  
