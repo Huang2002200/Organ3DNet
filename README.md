@@ -42,7 +42,7 @@ The relevant files for preprocessing the dataset are stored in the datasets/prep
   ```
   python get_edge.py --input /path/to/augmented dataset/Area_1(Area_2) --output /path/to/labeled dataset/Area_1(Area_2)
   ```
-* Convert the point cloud files processed by the above steps into npy files with a file size of (N,7), where N is the number of point cloud points, the first three columns are xyz information, the fourth column is the segment id, all initialized to 1 (not used during training and testing), the fifth column is the binary label to determine whether it is an edge point, the sixth column is the semantic label, and the seventh column is the real label.
+* Convert the point cloud files processed by the above steps into npy files with a file size of (N,7), where N is the number of point cloud points, the first three columns are xyz information, the fourth column is the segment id, all initialized to 1 (not used during training and testing), the fifth column is the binary label to determine whether it is an edge point, the sixth column is the semantic label, and the seventh column is the instance label.
   ```
   cd ..\..\..
   python -m datasets.preprocessing.plant_preprocessing preprocess --data_dir="/path/to/labeled dataset" --save_dir="./data/processed/5plant"
