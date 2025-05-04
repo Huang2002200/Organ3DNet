@@ -122,13 +122,12 @@ class PlantPreprocessing(BasePreprocessing):
         # 获取ins label列和sem label列
         sem_label = points[:, 4].astype(int)
         ins_label = points[:, 3].astype(int)
-        normals = points[:, 5:8]
         is_edge = points[:, -1:]
 
         ones_data = np.ones((normals.shape[0], 1))
-        xyz_info_with_colors_and_ones = np.hstack((xyz_info, ones_data, normals, is_edge))
+        xyz_info_with_colors_and_ones = np.hstack((xyz_info, ones_data, is_edge))
 
-        points = np.hstack((xyz_info_with_colors_and_ones, sem_label[:, None], ins_label[:, None]))  #xyz_segid_normals_isedge_sem_ins
+        points = np.hstack((xyz_info_with_colors_and_ones, sem_label[:, None], ins_label[:, None]))  #xyz_segid_isedge_sem_ins
         gt_data = (points[:, -2] + 1) * 1000 + points[:, -1] + 1
 
         file_len = len(points)
