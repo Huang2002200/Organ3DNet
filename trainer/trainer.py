@@ -705,24 +705,21 @@ class InstanceSegmentation(pl.LightningModule):
                 norm_overlaps = pairwise_overlap / normalization
 
                 for instance_id in range(norm_overlaps.shape[0]):
-                    if not (
-                        sort_scores_values[instance_id]
-                        < self.config.general.scores_threshold
-                    ):
-                        # check if mask != empty
-                        if not sorted_masks[:, instance_id].sum() == 0.0:
-                            overlap_ids = set(
-                                np.nonzero(
-                                    norm_overlaps[instance_id, :]
-                                    > self.config.general.iou_threshold
-                                )[0]
-                            )
+                    
+                    # check if mask != empty
+                    if not sorted_masks[:, instance_id].sum() == 0.0:
+                        overlap_ids = set(
+                            np.nonzero(
+                                norm_overlaps[instance_id, :]
+                                > self.config.general.iou_threshold
+                            )[0]
+                        )
 
-                            if len(overlap_ids) == 0:  #
+                        if len(overlap_ids) == 0:  #
+                            keep_instances.add(instance_id)
+                        else:
+                            if instance_id == min(overlap_ids):
                                 keep_instances.add(instance_id)
-                            else:
-                                if instance_id == min(overlap_ids):
-                                    keep_instances.add(instance_id)
 
                 keep_instances = sorted(list(keep_instances))
                 all_pred_classes.append(sort_classes[keep_instances])
