@@ -198,8 +198,8 @@ class SemanticSegmentationDataset(Dataset):
         labels = np.hstack((labels, segments[..., None].astype(np.int32)))
 
         features = coordinates
-        if self.add_normals:
-            features = np.hstack((features, normals))
+        # if self.add_normals:
+        #     features = np.hstack((features, normals))
         if self.add_raw_coordinates:
             if len(features.shape) == 1:
                 features = np.hstack((features[None, ...],  is_edge[..., None], raw_coordinates))
