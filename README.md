@@ -47,6 +47,20 @@ The relevant files for preprocessing the dataset are stored in the datasets/prep
   cd ..\..\..
   python -m datasets.preprocessing.plant_preprocessing preprocess --data_dir="/path/to/labeled dataset" --save_dir="./data/processed/5plant"
   ```
+## Calculate leaf phenotypic traits<br>
+The prediction (segmentation) results of Organ3DNet can be used to calculate individual leaf phenotypic traits, such as leaf area, leaf length, leaf width, and leaf inclination angle. The computational code resides in the /leaf_phenotyping directory:
+* Restore the segmented leaf instances from the inference results to the original 3D space via inverse normalization.
+  ```
+  python 01_Inverse_normalization.py --original-dir "/origin" --normalized-dir "/pred" --output-dir "/unscale"
+  ```
+* Precisely align each predicted single leaf with GT. For each GT leaf region, we compute its IOU with all predicted leaf instances, and establish a correspondence based on the highest one.
+  ```
+  python 02_Align_leaves.py --true-dir "/origin" --pred-dir "/unscale" --output-dir "/align results"
+  ```
+* Calculate the phenotypic traits (e.g., leaf area, leaf length, leaf width, and leaf inclination angle) for the paired leaf regions (predicted and GT).
+  ```
+  python 03_Calculate_the_phenotypic_traits.py --search 200 --importance 3 --folder "/origin(align results)" --dest "/OUTPUT"
+  ```
 ## Quick Start<br>
 After the processed data set is stored in the directory ./data/processed/5plant, training and testing can be performed.
 * Training
