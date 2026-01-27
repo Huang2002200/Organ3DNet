@@ -53,7 +53,7 @@ def match_instances(true_labels, pred_labels):
         max_iou = iou_values[max_iou_idx]
         pred_instance = pred_instances[max_iou_idx]
 
-        if max_iou > pred_iou_max[pred_instance]:
+        if max_iou > pred_iou_max[pred_instance] and max_iou >= 0.3:
             if pred_instance in mapping:
                 del mapping[pred_instance]
             mapping[pred_instance] = true_instance
