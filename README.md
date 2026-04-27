@@ -1,4 +1,14 @@
 # Organ3DNet
+
+This repo contains the official codes for our paper:
+
+### Organ3DNet: a deep network for segmenting organ semantics and instances from dense plant point clouds
+[D. Li†](https://davidleepp.github.io/), J. Huang†, B. Zhao, and W. Wen*<br>
+† Equal contribution<br>
+Published online on *Artificial Intelligence in Agriculture* in 2025<br>
+[[Paper](https://www.sciencedirect.com/science/article/pii/S2589721725000911)]
+[[8-minute presentation](https://www.bilibili.com/video/BV1mn9uBME4X)]<br>
+
 ## Prerequisites<br>
 You can install a conda environment by following the steps below:<br>
 ```
