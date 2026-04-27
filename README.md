@@ -44,11 +44,11 @@ The relevant files for preprocessing the dataset are stored in the datasets/prep
   cd datasets/preprocessing/data_prepare
   python scale_pointcloud.py --input /path/to/dataset/Area_1(Area_2) --output /path/to/scaled dataset/Area_1(Area_2) --range 30
   ```
-* Perform 10 times data augmentation on the point clouds in the training set. First, record the center point of the crop point cloud as the first center point. Second, use the Farthest Point Sampling (FPS) to produce another 8 center points from the plant. Third, use the above 9 center points to form 9 cubic area with a side length of 20 (this number should not be larger than the longest length of the plant bounding box, usually set as the 2/3 longest length), respectively. The original crop point cloud as well as the 9 formed cube areas are used as point clouds in the augmented training set. Because 1 point cloud turns into 10 point clouds, we call it 10x augmentation.
+* Perform 10-times (10x) data augmentation on the point clouds in the training set. First, record the center point of the crop point cloud as the first center point. Second, use the Farthest Point Sampling (FPS) to produce another 8 center points from the plant. Third, use the above 9 center points to form 9 cubic area with a side length of 20 (this number should not be larger than the longest length of the plant bounding box, usually set as the 2/3 longest length), respectively. The original crop point cloud as well as the 9 formed cube areas are used as point clouds in the augmented training set. Because 1 point cloud turns into 10 point clouds, we call it 10x augmentation.
   ```
   python traindata_agument.py --input /path/to/scaled dataset/Area_1 --output /path/to/augmented dataset/Area_1
   ```
-* Extract the edge points in the augmented training set (test set) point cloud and add the label 1 to the corresponding points, and add the label 0 to the remaining points. This step is to easily distinguish edge points and non-edge points during subsequent 3DEPS sampling.
+* Extract the edge points in the augmented training set (or testing set) point cloud and add label "1" to the corresponding edge points, and add label "0" to the inner points. This step is for better distinguishing edge points and non-edge points during subsequent [3DEPS](https://www.sciencedirect.com/science/article/abs/pii/S0924271622000119) sampling.
   ```
   python get_edge.py --input /path/to/augmented dataset/Area_1(Area_2) --output /path/to/labeled dataset/Area_1(Area_2)
   ```
