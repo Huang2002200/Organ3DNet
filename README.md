@@ -1,6 +1,6 @@
 # Organ3DNet
 
-This repo contains the official codes for our paper:
+This repo contains the official data and code for our paper:
 
 ### Organ3DNet: a deep network for segmenting organ semantics and instances from dense plant point clouds
 [D. Li†](https://davidleepp.github.io/), J. Huang†, B. Zhao, and W. Wen*<br>
