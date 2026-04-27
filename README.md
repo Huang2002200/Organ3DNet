@@ -37,14 +37,14 @@ The dataset (file 5plant_xyz_ins_sem.rar)(https://doi.org/10.5281/zenodo.1716587
 All raw point clouds are represented in the form of txt files. Each txt file stands for the full point cloud of a 3D plant. Each row of the txt represents a point in the point cloud. Each txt file contains 5 columns, in which the first three columns give the "xyz" coordinate in centimeter, the fourth column gives the instance label, and the fifth column shows the semantic label.<br><br>
 The value of the semantic label starts from "0" to "9". "0" means "tobacco stem system", "1" means "tobacco leaves"; "2" means "tomato stem system", "3" means "tomato leaves"; "4" means "sorghum stem system", "5" means "sorghum leaves"; "6" means "soybean stem system", "7" means "soybean leaves"; "8" means "pepper stem system", "9" means "pepper leaves".<br><br>
 The value of the instance label represents the index of that organ instance (in most cases means a leaf instance). For example, "1" represents the 1st leaf in the current plant point cloud, and "18" represents the 18th leaf in the current plant point cloud. Every point in the stem system (regardless of species) is assigned an instance label of 0 because how to further separate the whole stem system into meaningful segments is still controversial in the field.<br>
-## Data_preprocessing<br>
+## Data preprocessing<br>
 The relevant files for preprocessing the dataset are stored in the datasets/preprocessing folder. The preprocessing steps are as follows: <br>
-* Normalize the coordinates of the training set (test set) point cloud and scale it to the interval [0,30].
+* Normalize each coordinate axis of the point clouds in the training set (or testing set) by scaling it to the interval [0,30].
   ```
   cd datasets/preprocessing/data_prepare
   python scale_pointcloud.py --input /path/to/dataset/Area_1(Area_2) --output /path/to/scaled dataset/Area_1(Area_2) --range 30
   ```
-* Perform 10x data enhancement on the training set point cloud. First, record its center point, then use the farthest point sampling (FPS) to sample 8 points. Use these 9 points as the center point to form a cube area with a side length of 20. The entire crop point cloud and the crop part contained in these 9 cubes are used as the augmented training dataset.
+* Perform 10 times data augmentation on the point clouds in the training set. First, record the center point of the crop point cloud as the first center point. Second, use the Farthest Point Sampling (FPS) to produce another 8 center points from the plant. Third, use the above 9 center points to form 9 cubic area with a side length of 20 (this number should not be larger than the longest length of the plant bounding box, usually set as the 2/3 longest length), respectively. The original crop point cloud as well as the 9 formed cube areas are used as point clouds in the augmented training set. Because 1 point cloud turns into 10 point clouds, we call it 10x augmentation.
   ```
   python traindata_agument.py --input /path/to/scaled dataset/Area_1 --output /path/to/augmented dataset/Area_1
   ```
