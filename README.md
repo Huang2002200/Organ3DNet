@@ -8,7 +8,7 @@ This repo contains the official data and code for our paper:
 Published online on *Artificial Intelligence in Agriculture* in 2025<br>
 [[Paper](https://www.sciencedirect.com/science/article/pii/S2589721725000911)]
 [[8-minute presentation](https://www.bilibili.com/video/BV1mn9uBME4X)]<br>
-Our code made reference to the offical code of [Mask3D](https://github.com/JonasSchult/Mask3D).
+
 
 ## Prerequisites<br>
 You can install a conda environment by following the steps below:<br>
@@ -85,3 +85,13 @@ After the preprocessed data has been stored in the directory ./data/processed/5p
   conda activate Organ3DNet
   sh test.sh
   ```
+
+## Acknowledgement<br>
+Our code made reference to the offical code of [Mask3D](https://github.com/JonasSchult/Mask3D).
+The citation of their paper is
+@article{Schult23,
+  title     = {{Mask3D: Mask Transformer for 3D Semantic Instance Segmentation}},
+  author    = {Schult, Jonas and Engelmann, Francis and Hermans, Alexander and Litany, Or and Tang, Siyu and Leibe, Bastian},
+  booktitle = {{International Conference on Robotics and Automation (ICRA)}},
+  year      = {2023}
+}
