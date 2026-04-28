@@ -90,10 +90,13 @@ After the preprocessed data has been stored in the directory ./data/processed/5p
 Our code made reference to the offical code of [Mask3D](https://github.com/JonasSchult/Mask3D).<br>
 The citation of Mask3D paper is<br>
   ```
-@article{Schult23,
-  title     = {{Mask3D: Mask Transformer for 3D Semantic Instance Segmentation}},
-  author    = {Schult, Jonas and Engelmann, Francis and Hermans, Alexander and Litany, Or and Tang, Siyu and Leibe, Bastian},
-  booktitle = {{International Conference on Robotics and Automation (ICRA)}},
-  year      = {2023}
+@misc{schult2023mask3dmasktransformer3d,
+      title={Mask3D: Mask Transformer for 3D Semantic Instance Segmentation}, 
+      author={Jonas Schult and Francis Engelmann and Alexander Hermans and Or Litany and Siyu Tang and Bastian Leibe},
+      year={2023},
+      eprint={2210.03105},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2210.03105}, 
 }
   ```
