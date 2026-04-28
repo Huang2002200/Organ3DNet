@@ -52,27 +52,27 @@ The relevant files for preprocessing the dataset are stored in the datasets/prep
   ```
   python get_edge.py --input /path/to/augmented dataset/Area_1(Area_2) --output /path/to/labeled dataset/Area_1(Area_2)
   ```
-* Convert the point cloud files processed by the above steps into npy files with a file size of (N,7), where N is the number of point cloud points and 7 means the number of columns. The first three columns are xyz coordinates, the fourth column is the segment id that all are initialized to 1 (not used during training and testing), the fifth column is the binary label to determine whether it is an edge point, the sixth column is the semantic label, and the seventh column is the instance label.
+* Convert the point cloud files processed by the above steps into npy files with a file size of (N,7), where N is the number of point cloud points and 7 means the number of columns. The first three columns are xyz coordinates, the fourth column is the segment id that all are initialized to 1 (not used during training and testing), the fifth column is the binary label that indicates whether the point is an edge point or not, the sixth column is the semantic label, and the seventh column is the instance label.
   ```
   cd ..\..\..
   python -m datasets.preprocessing.plant_preprocessing preprocess --data_dir="/path/to/labeled dataset" --save_dir="./data/processed/5plant"
   ```
 ## Calculate leaf phenotypic traits<br>
-The prediction (segmentation) results of Organ3DNet can be used to calculate individual leaf phenotypic traits, such as leaf area, leaf length, leaf width, and leaf inclination angle. The computational code resides in the /leaf_phenotyping directory:
-* Restore the segmented leaf instances from the inference results to the original 3D space via inverse normalization.
+The prediction (segmentation) results of Organ3DNet at the testing stage can be used to calculate individual leaf phenotypic traits such as leaf area, leaf length, leaf width, and leaf inclination angle. The code used for phenotyping is in the /leaf_phenotyping file directory:
+* Restore the segmented leaf instances from the inference (testing) results to the original 3D space via denormalization.
   ```
   python 01_Inverse_normalization.py --original-dir "/origin" --normalized-dir "/pred" --output-dir "/unscale"
   ```
-* Precisely align each predicted single leaf with GT. For each GT leaf region, we compute its IOU with all predicted leaf instances, and establish a correspondence based on the highest one.
+* Precisely align each predicted single leaf with the corresponding GT. For each GT leaf region, we compute its IoU (Intersection over Union) with all predicted leaf instances, and establish a correspondence based on the one with the highest IoU.
   ```
   python 02_Align_leaves.py --true-dir "/origin" --pred-dir "/unscale" --output-dir "/align results"
   ```
-* Calculate the phenotypic traits (e.g., leaf area, leaf length, leaf width, and leaf inclination angle) for the paired leaf regions (predicted and GT).
+* Calculate the phenotypic traits (e.g., leaf area, leaf length, leaf width, and leaf inclination angle) for the paired leaf regions (predicted and GT) for further comparison or visualization.
   ```
   python 03_Calculate_the_phenotypic_traits.py --search 200 --importance 3 --folder "/origin(align results)" --dest "/OUTPUT"
   ```
 ## Quick Start<br>
-After the processed data set is stored in the directory ./data/processed/5plant, training and testing can be performed.
+After the preprocessed data has been stored in the directory ./data/processed/5plant, training and testing can be performed.
 * Training
   ```
   conda activate Organ3DNet
